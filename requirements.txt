@@ -1,0 +1,10 @@
+streamlit
+python-dotenv
+nest_asyncio
+langchain
+langchain-google-genai
+langchain-community
+unstructured[local-inference]
+faiss-cpu
+pypdf
+langchain-core

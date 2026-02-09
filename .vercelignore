@@ -1,0 +1,6 @@
+data/
+index_faiss/
+*.pdf
+*.docx
+*.html
+*.htm

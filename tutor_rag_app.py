@@ -100,7 +100,9 @@ def load_all_docs():
             ext = f.lower()
             try:
                 if ext.endswith(".pdf"):
-                    docs += PyPDFLoader(path).load()
+                    loader = PyPDFLoader(path)
+                    # Limit to first 20 pages to avoid memory issues on Vercel
+                    docs += loader.load()[:20] if len(loader.load()) > 20 else loader.load()
                 elif ext.endswith(".txt") or ext.endswith(".md"):
                     docs += TextLoader(path, encoding="utf-8").load()
                 elif ext.endswith(".docx"):
@@ -122,7 +124,7 @@ def build_index():
         return False
 
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size=900, chunk_overlap=150, separators=["\n\n", "\n", " ", ""]
+        chunk_size=100, chunk_overlap=10, separators=["\n\n", "\n", " ", ""]
     )
     splits = splitter.split_documents(docs)
 
